@@ -8,9 +8,9 @@ namespace Graphix
 {
     internal class Graph
     {
-        public int n { get; set; }
-        public int[,] weights { get; set; }
-        public List<int> vertices { get; set; }
+        public int n { get; private set; }
+        public int[,] weights { get; private set; }
+        public List<int> vertices { get; private set; }
 
         public Graph(int n)
         {
