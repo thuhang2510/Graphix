@@ -39,18 +39,14 @@ namespace Graphix
 
         public static (string[], int) ReadFile(string fileName)
         {
-            string[] lines;
-
             try
             {
-                lines = File.ReadAllLines(fileName);
+                return (File.ReadAllLines(fileName), 0);
             }
             catch (IOException)
             {
                 return (null, -1);
             }
-
-            return (lines, 0);
         }
     }
 }

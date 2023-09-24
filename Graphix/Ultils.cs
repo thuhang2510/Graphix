@@ -42,11 +42,30 @@ namespace Graphix
             return date.ToUnixTimeSeconds().ToString();
         }
 
-        public static string[] SplitListStr(string fileLine)
+        public static string[] SplitStr(string fileLine)
         {
             char[] sep = new char[] { ' ', '\t' };
 
             return fileLine.Trim().Split(sep, System.StringSplitOptions.RemoveEmptyEntries);
+        }
+
+        public static Graph ConvertToGraph(string[] matrixFileLines, string[] vertexFileLines)
+        {
+            int n = int.Parse(matrixFileLines[0]);
+            Graph graph = new Graph(n);
+
+            for (int i = 1; i < matrixFileLines.Length; ++i)
+            {
+                string[] weightsInLine = SplitStr(matrixFileLines[i]);
+
+                for (int j = 0; j < n; ++j)
+                    graph[i - 1, j] = int.Parse(weightsInLine[j]);
+
+
+                graph.vertices.Add(int.Parse(vertexFileLines[i]));
+            }
+
+            return graph;
         }
     }
 }
