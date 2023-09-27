@@ -10,26 +10,36 @@ namespace Graphix
     internal class BFS
     {
         private Graph g;
+        private bool[] visited;
+        private Queue<int> queue;
 
         public BFS(Graph g)
         {
             this.g = g;
         }
 
-        public void StartBFS(int startVertex)
+        public void StartBFS(int nameStartVertex)
         {
-            bool[] visited = new bool[g.n];
-            Queue<int> queue = new Queue<int>();
+            visited = new bool[g.n];
+            queue = new Queue<int>();
 
-            var watch = Stopwatch.StartNew();
+            int index = g.getIndexFromVertextName(nameStartVertex);
 
+            if (index >= 0)
+                Bfs(index);
+            else
+                Console.WriteLine("Vertex not exist");
+        }
+
+        private void Bfs(int startVertex)
+        {
             queue.Enqueue(startVertex);
             visited[startVertex] = true;
 
             while (queue.Count > 0)
             {
                 int u = queue.Dequeue();
-                //Console.Write(g.vertices[u] + "\t");
+                Console.Write(g.vertices[u] + "\t");
 
                 for (int v = 0; v < g.n; ++v)
                     if (g[u, v] > 0 && visited[v] == false)
@@ -38,10 +48,6 @@ namespace Graphix
                         queue.Enqueue(v);
                     }
             }
-
-            watch.Stop();
-            Console.WriteLine("BFS");
-            Console.WriteLine((watch.ElapsedMilliseconds / 1000) + " giây");
         }
     }
 }
